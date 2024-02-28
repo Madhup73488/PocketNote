@@ -11,3 +11,39 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+i {
+  cursor: pointer;
+  font-size: 18px;
+}
+
+@keyframes hover-animation {
+  0% {
+    transform: scale(1);
+    /* Initial scale */
+  }
+
+  50% {
+    transform: scale(1.1);
+    /* Scale up halfway through */
+  }
+
+  100% {
+    transform: scale(1);
+    /* Return to original scale */
+  }
+}
+
+/* Apply the animation on hover */
+i:hover {
+  animation: hover-animation 0.5s ease-in-out;
+  /* Duration and timing function */
+}
+
+i.edit {
+  color: rgb(43, 226, 83);
+}
+
+i.delete {
+  color: red;
+}

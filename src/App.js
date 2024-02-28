@@ -1,24 +1,37 @@
-import logo from './logo.svg';
-import './App.css';
 
+import Navbar from './components/Navbar'
+import About from './components/About'
+import Notes from './components/Notes'
+import SignUpOrLogin from './components/SignUpOrLogin'
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import NoteState from './context/Notes/NoteState'
+import { useState } from 'react';
+import Toast from './components/Toast';
 function App() {
+  const [toast, setToast] = useState(null);
+  const ShowToast = (message, type) => {
+    setToast({ message, type });
+    setTimeout(() => {
+      setToast(null)
+    }, 3000);
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <NoteState>
+        <Router>
+          <Navbar />
+          {toast && <Toast message={toast.message} type={toast.type} />}
+          <div className="flex bg-dark text-white">
+            <Routes>
+              <Route exact path='/' element={<SignUpOrLogin ShowToast={ShowToast} />}></Route>
+              <Route exact path='/About' element={<About />}></Route>
+              <Route exact path='/Notes' element={<Notes ShowToast={ShowToast} />}></Route>
+              <Route exact path='/SignUpOrLogin' element={<SignUpOrLogin ShowToast={ShowToast} />}></Route>
+            </Routes>
+          </div>
+        </Router>
+      </NoteState>
+    </>
   );
 }
 
